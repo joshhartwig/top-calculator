@@ -1,4 +1,6 @@
 
+
+
 //add two numbers
 const add = function(a,b){
     if(isNaN(a) || isNaN(b)){
@@ -31,10 +33,24 @@ const multiply = function(a,b){
     return a * b;
 }
 
+const createCalculatorDivs = function(id){
+    const container = document.querySelector(`#${id}`);
+
+    for(let r = 1; r <= 6; r++){
+        let row = document.createElement('div');
+
+        for(let c = 1; c <= 4; c++){
+            let col = document.createElement('div');
+            col.classList.add(`grid-row:${r}`);
+            col.classList.add(`grid-column:${c}`);
+            col.style.cssText = `outline: 3px dashed #f90;`;
+
+            row.appendChild(col);
+        }
+
+        container.appendChild(row);
+    }
+}
 
 
-module.exports = add;
-module.exports = subtract;
-module.exports = multiply;
-module.exports = divide;
 
