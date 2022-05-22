@@ -1,26 +1,56 @@
 // TODO: intake each digit as an input into an array and do math operation on equal sign
-// ex 1 2 3 + 3 2 1 = 123 + 321 = whatever that equals...
-
-
-
-let firstNum = 0; //state for first number
-let secondNum = 0; //state for second number
+// TODO: decimal is broken, fix it by keeping track of where decimal is... cannot be first it must come after a number 
+// TODO: get +/- to work, we need to append a negative or positive to the values array and push everything back
+// TODO: complete the final eval expression function and add once done add that value back to a clear values array
 
 let values = []; //this is used to capture digits that form a full number
+let fullOperation = []; 
 
 //takes each digit entered into array and returns it as a int
 const getNumFromValues = function(val){
     //take each number from val array and add it to a string
     let sumAsString = "";
+    let hasDecimal = false;
     val.forEach(e => {
+        if (e === '.'){
+            hasDecimal = true;
+        }
         sumAsString += e;
     });
+    if (hasDecimal){
+        return parseFloat(sumAsString);
+    }
     return parseInt(sumAsString);
+}
+
+//append operator to values then set display to previous number, copy all values to fullOperation array and clear values array
+const getNextValue = function(operator){
+    updateDisplay('display',getNumFromValues(values))
+    values.push(operator);
+    //copy everything from value to full operation and clear values. We will use full operation to do the math.
+    values.forEach(e => {
+        fullOperation.push(e);
+    });
+
+    //clear values array
+    values = []; // we should now be ready to take the next input and continue this loop. The next value entered will append
+    // to the values array and trigger an update of the display with the new number.
 }
 
 //push numbers into an array
 const addToValues = function(val){
     values.push(val);
+    updateDisplay('display');
+}
+
+//update the display to show the number currently in the array
+const updateDisplay = function(id, num){
+    const display = document.getElementById(`${id}`)
+    if(num === undefined){
+        display.innerText = getNumFromValues(values);
+    } else {
+        display.innerText = num;
+    }
 }
 
 //operate
