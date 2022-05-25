@@ -2,9 +2,12 @@
 // TODO: decimal is broken, fix it by keeping track of where decimal is... cannot be first it must come after a number 
 // TODO: get +/- to work, we need to append a negative or positive to the values array and push everything back
 // TODO: complete the final eval expression function and add once done add that value back to a clear values array
+// TODO: in getNextValue... if evaluate is true, the second number in the eqaution is entered and we need to calcuate and display
+// else do logic to get next value
 
 let values = []; //this is used to capture digits that form a full number
 let fullOperation = []; 
+let evaluate = false;
 
 //takes each digit entered into array and returns it as a int
 const getNumFromValues = function(val){
@@ -53,9 +56,10 @@ const updateDisplay = function(id, num){
     }
 }
 
-//operate
-const operate = function(command,num1, num2){
-    //each function key on keypad will trigger operate plus command to operate, ex add will call operate(add,num1,num2)
+const evaluate = function(arr){
+    //we should have an array that we need to evaluate
+    //we need to clear out that array when done
+    
 }
 
 //add two numbers
