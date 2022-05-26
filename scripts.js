@@ -6,29 +6,36 @@
 // else do logic to get next value
 
 let values = []; //this is used to capture digits that form a full number
-let fullOperation = []; 
+let fullOperation = [];
 let evaluate = false;
 
+
+
+
+
+
+
+
 //takes each digit entered into array and returns it as a int
-const getNumFromValues = function(val){
+const getNumFromValues = function (val) {
     //take each number from val array and add it to a string
     let sumAsString = "";
     let hasDecimal = false;
     val.forEach(e => {
-        if (e === '.'){
+        if (e === '.') {
             hasDecimal = true;
         }
         sumAsString += e;
     });
-    if (hasDecimal){
+    if (hasDecimal) {
         return parseFloat(sumAsString);
     }
     return parseInt(sumAsString);
 }
 
 //append operator to values then set display to previous number, copy all values to fullOperation array and clear values array
-const getNextValue = function(operator){
-    updateDisplay('display',getNumFromValues(values))
+const getNextValue = function (operator) {
+    updateDisplay('display', getNumFromValues(values))
     values.push(operator);
     //copy everything from value to full operation and clear values. We will use full operation to do the math.
     values.forEach(e => {
@@ -41,54 +48,54 @@ const getNextValue = function(operator){
 }
 
 //push numbers into an array
-const addToValues = function(val){
+const addToValues = function (val) {
     values.push(val);
     updateDisplay('display');
 }
 
 //update the display to show the number currently in the array
-const updateDisplay = function(id, num){
+const updateDisplay = function (id, num) {
     const display = document.getElementById(`${id}`)
-    if(num === undefined){
+    if (num === undefined) {
         display.innerText = getNumFromValues(values);
     } else {
         display.innerText = num;
     }
 }
 
-const evaluate = function(arr){
+const evaluate = function (arr) {
     //we should have an array that we need to evaluate
     //we need to clear out that array when done
-    
+
 }
 
 //add two numbers
-const add = function(a,b){
-    if(isNaN(a) || isNaN(b)){
+const add = function (a, b) {
+    if (isNaN(a) || isNaN(b)) {
         return 'ERROR';
     }
     return a + b;
 }
 
 //subtract two numbers
-const subtract = function(a,b){
-    if(isNaN(a) || isNaN(b)){
+const subtract = function (a, b) {
+    if (isNaN(a) || isNaN(b)) {
         return 'ERROR';
     }
     return a - b;
 }
 
 //divide two numbers
-const divide = function(a,b){
-    if(isNaN(a) || isNaN(b)){
+const divide = function (a, b) {
+    if (isNaN(a) || isNaN(b)) {
         return 'ERROR';
     }
     return a / b;
 }
 
 //multiply two numbers
-const multiply = function(a,b){
-    if(isNaN(a) || isNaN(b)){
+const multiply = function (a, b) {
+    if (isNaN(a) || isNaN(b)) {
         return 'ERROR';
     }
     return a * b;
