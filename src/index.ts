@@ -1,13 +1,30 @@
+// TODO: all person to press num from key 1 = add to array...
+// TODO: add everything to an array and eval
+// TODO: display shows everything in the array
+// TODO: = processes the equation and display final result on display
+// TODO: clear the array set final result to 0 make updatedisplay take optional num to display if num exists just dipslay num else display array
 
-let firstNum: number = 0;
-let secondNum: number = 0;
-let values: string[]; //store input 
-let operator: string = '';
-let firstNumSet: boolean = false;
 
+let values: string[] = [];
+let finalResult: number = 0;
 
-// convert string array into a number
-function getNumFromStrArray(arr: string[]): number {
+function addToValues(val:string):void {
+    values.push(val);
+    updateDipslay('display');
+}
+
+function updateDipslay(id:string,num?:number): void {
+    const display = document.getElementById(`${id}`);
+    if(display){
+        if(num){
+            display.innerText = num.toString();
+        } else {
+            display.innerText = getNumFromValues(values).toString();
+        }
+    }
+}
+
+function getNumFromValues(arr: string[]): number {
     let sumAsString: string = "";
     let hasDecimal: boolean = false;
     arr.forEach(e => {
@@ -22,45 +39,14 @@ function getNumFromStrArray(arr: string[]): number {
     return parseInt(sumAsString);
 }
 
-function calculate(operator: string) {
-    //if first number is not set copy array vals to firstNum
-    // set firstisset to true
-    //set operator
-    if (!firstNumSet) {
-        firstNum = getNumFromStrArray(values);
-        values = [];
-        operator = operator;
-        firstNumSet = true;
-        updateDisplay('display');
-    } else {
-        secondNum = getNumFromStrArray(values);
-        values = [];
-
-        switch (operator) {
-            case '':
-                console.log('operator not set');
-                break;
-            case '+':
-                firstNum = null // TODO: finish me also rename this calc functions
-        }
-        //calculate firstnum operator secondnum
-        //set firstnum to secondnum value; set secondnum to 0;
-        //clear operator 
-        //set firstnumset to false;
-    }
+function compute(arr: string[]): void {
+    //set final result based on computing the string array
+    //update disply with final result
+    //reset
 }
 
-//push a value into our array from dom
-function addToArray(val: string, arr: string[]): void {
-    arr.push(val);
-    updateDisplay('display');
+function reset(){
+    finalResult = 0;
+    values = [];
+    updateDipslay('display');
 }
-
-function updateDisplay(id: string): void {
-    const display = document.getElementById(`${id}`);
-    if (display) {
-        display.innerText = firstNum.toString();
-    };
-}
-
-
