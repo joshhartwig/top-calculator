@@ -1,28 +1,35 @@
-// TODO: all person to press num from key 1 = add to array...
-// TODO: add everything to an array and eval
-// TODO: display shows everything in the array
-// TODO: = processes the equation and display final result on display
-// TODO: clear the array set final result to 0 make updatedisplay take optional num to display if num exists just dipslay num else display array
-
 
 let values: string[] = [];
+let operator: string = '';
+let num1: number = 0;
+let num2: number = 0;
 let finalResult: number = 0;
+const display = document.getElementById(`display`);
 
 function addToValues(val:string):void {
     values.push(val);
-    updateDipslay('display');
+    updateDipslay();
 }
 
-function updateDipslay(id:string,num?:number): void {
-    const display = document.getElementById(`${id}`);
+function updateDipslay(): void {
     if(display){
-        if(num){
-            display.innerText = num.toString();
-        } else {
-            display.innerText = getNumFromValues(values).toString();
+        if (values.length === 0){
+                display.innerText = '0';
+            }
+            display.innerText = values.toString();
         }
     }
+
+function setOperator(opr:string){
+    if(operator === ''){ //if the operator is not set, set it
+        operator = opr;
+        num1 = getNumFromValues(values); //copy num from values array
+        values = []; //reset values for the next number
+    } else {
+        displayError();
+    }
 }
+
 
 function getNumFromValues(arr: string[]): number {
     let sumAsString: string = "";
@@ -39,14 +46,54 @@ function getNumFromValues(arr: string[]): number {
     return parseInt(sumAsString);
 }
 
-function compute(arr: string[]): void {
-    //set final result based on computing the string array
-    //update disply with final result
-    //reset
-}
+function compute(): void {
+    switch (operator){
+        case '':
+            displayError();
+            reset();
+            break;
+        case '+':
+            finalResult = add(num1,num2);
+            displayFinalResult();
+            reset();
+            break;
+        case '-':
+            finalResult = subtract(num1,num2);
+                displayFinalResult();
+                reset();
+                break;
+            }
+    }
 
 function reset(){
     finalResult = 0;
     values = [];
-    updateDipslay('display');
+    updateDipslay();
 }
+
+function displayError() {
+    if(display){
+        display.innerText = 'Error';
+    }
+    reset();
+}
+
+
+function displayFinalResult() {
+    if(display){
+        display.innerHTML = finalResult.toString();
+    }
+}
+
+function add(num1: number, num2: number): number {
+    return num1 + num2;
+}
+
+function multiply(num1: number, num2: number): number {
+    return num1 * num2;
+}
+
+function subtract(num1: number, num2: number): number {
+    return num1 - num2;
+}
+
