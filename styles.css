@@ -1,5 +1,5 @@
 /* color palette
-https://colorhunt.co/palette/f8ecd1deb6abac7d8885586f
+https://colorhunt.co/palette/11052c3d087bf43b86ffe459
 */
 
 html,
@@ -16,43 +16,54 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100%;
+    font-family: 'Spline Sans Mono', monospace;
 }
 
 .header {
+    background-color: #11052C;
     height: 10%;
+}
+
+.header-title {
+    margin-left: 20px;
+    font-weight: bolder;
+    color: white;
 }
 
 .container {
     display: flex;
     justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #3D087B;
 }
 
 .calc {
     display: grid;
-    font-family: sans-serif;
+    font-family: 'Spline Sans Mono', monospace;
     gap: 3px;
     background-color: #ddd;
     /* repeat function 4 columns 1 fractional width each */
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 50px;
     grid-auto-flow: row;
-    width:250px;
+    width: 250px;
 }
 
 [class^='grid-item'] {
-    outline: 1px #f90 dashed;
+    outline: 1px black dashed;
     display: grid;
-    background-color: darkcyan;
+    background-color: #FFE459;
     align-items: center;
     justify-content: center;
-  }
+}
 
-  .grid-item0 {
+.grid-item0 {
     /* negative -1 equals the very last column value*/
     grid-column: 1/-1;
-  }
+}
 
-  .grid-item17 {
+.grid-item17 {
     /* negative -1 equals the very last column value*/
     grid-column: 1/3;
-  }
+}

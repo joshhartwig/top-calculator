@@ -6,25 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" />
-    <script src="scripts.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono&display=swap" rel="stylesheet">
+    <script src="dist\index.js" defer></script>
     <title>Document</title>
 </head>
 
 <body>
     <div class="header">
-        <p class="Web Calc">Web Calc Header</p>
+        <p class="header-title">The Odin Project Web Calculator</p>
     </div>
     <div class="container">
         <div class="calc">
-            <div class="grid-item0" id="display">DISPLAY</div>
-            <div class="grid-item1" onclick="reset()">C</div>
+            <div class="grid-item0" id="display"></div>
+            <div class="grid-item1" onclick="resetCalculator()">C</div>
             <div class="grid-item2">+/-</div>
             <div class="grid-item3" onclick="setOperator('%')">%</div>
             <div class="grid-item4" onclick="setOperator('/')">/</div>
             <div class="grid-item5" onclick="addToValues('7')">7</div>
             <div class="grid-item6" onclick="addToValues('8')">8</div>
             <div class="grid-item7" onclick="addToValues('9')">9</div>
-            <div class="grid-item8" onclick="addToValues('*')">X</div>
+            <div class="grid-item8" onclick="setOperator('*')">X</div>
             <div class="grid-item9" onclick="addToValues('4')">4</div>
             <div class="grid-item10" onclick="addToValues('5')">5</div>
             <div class="grid-item11" onclick="addToValues('6')">6</div>
@@ -38,7 +41,7 @@
             <div class="grid-item19" onclick="compute()">=</div>
         </div>
     </div>
-    
+
     <div class="footer">
         <p>Footer</p>
     </div>

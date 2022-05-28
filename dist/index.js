@@ -14,7 +14,11 @@ function updateDipslay() {
         if (values.length === 0) {
             display.innerText = '0';
         }
-        display.innerText = values.toString();
+        let s = '';
+        values.forEach(e => {
+            s += e;
+        });
+        display.innerText = s;
     }
 }
 function setOperator(opr) {
@@ -42,6 +46,7 @@ function getNumFromValues(arr) {
     return parseInt(sumAsString);
 }
 function compute() {
+    num2 = getNumFromValues(values);
     switch (operator) {
         case '':
             displayError();
@@ -57,11 +62,26 @@ function compute() {
             displayFinalResult();
             reset();
             break;
+        case '*':
+            finalResult = multiply(num1, num2);
+            displayFinalResult();
+            reset();
+            break;
+        case '/':
+            finalResult = divide(num1, num2);
+            displayFinalResult();
+            reset();
+            break;
     }
 }
 function reset() {
     finalResult = 0;
     values = [];
+}
+function resetCalculator() {
+    finalResult = 0;
+    values = [];
+    operator = '';
     updateDipslay();
 }
 function displayError() {
@@ -75,12 +95,7 @@ function displayFinalResult() {
         display.innerHTML = finalResult.toString();
     }
 }
-function add(num1, num2) {
-    return num1 + num2;
-}
-function multiply(num1, num2) {
-    return num1 * num2;
-}
-function subtract(num1, num2) {
-    return num1 - num2;
-}
+let add = (x, y) => x + y;
+let multiply = (x, y) => x * y;
+let subtract = (x, y) => x - y;
+let divide = (x, y) => x / y;
