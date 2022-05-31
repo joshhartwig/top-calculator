@@ -1,37 +1,76 @@
 "use strict";
-let values = [];
+const display = document.getElementById('display');
+const allowedNumericValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
+const allowedOperatorValues = ['/', '+', '*', '-'];
 let operator = '';
-let num1 = 0;
-let num2 = 0;
-let finalResult = 0;
-const display = document.getElementById(`display`);
-function addToValues(val) {
-    values.push(val);
-    updateDipslay();
+let buffer = [];
+let firstNum;
+let secondNum;
+let result;
+let firstNumSet = false;
+function addToBuffer(val) {
+    if (allowedNumericValues.includes(val)) {
+        buffer.push(val);
+        updateDipslay(buffer);
+    }
 }
-function updateDipslay() {
-    if (display) {
-        if (values.length === 0) {
-            display.innerText = '0';
+function calculate() {
+    if (operator != '') {
+        if (!firstNumSet) {
+            firstNum = getNumFromValues(buffer);
+            result = firstNum;
+            clearBuffer();
+            firstNumSet = true;
+            updateDipslay(buffer);
         }
-        let s = '';
-        values.forEach(e => {
-            s += e;
-        });
-        display.innerText = s;
+        else {
+            secondNum = getNumFromValues(buffer);
+            result = generateResult(operator, firstNum, secondNum);
+            clearNumbers();
+            clearBuffer();
+            updateDipslay(buffer);
+            firstNum = result;
+        }
+    }
+    else {
+        console.log('error operator must be set.');
     }
 }
 function setOperator(opr) {
-    if (operator === '') {
+    if (allowedOperatorValues.includes(opr)) {
         operator = opr;
-        num1 = getNumFromValues(values);
-        values = [];
+        calculate();
     }
     else {
-        displayError();
+        console.log('wrong operator passed');
     }
 }
+function generateResult(opr, num1, num2) {
+    let r = 0;
+    switch (opr) {
+        case '':
+            displayError();
+            reset();
+            break;
+        case '+':
+            r = add(num1, num2);
+            break;
+        case '-':
+            r = subtract(num1, num2);
+            break;
+        case '*':
+            r = multiply(num1, num2);
+            break;
+        case '/':
+            r = divide(num1, num2);
+            break;
+    }
+    return r;
+}
 function getNumFromValues(arr) {
+    if (arr.length == 0) {
+        return 0;
+    }
     let sumAsString = "";
     let hasDecimal = false;
     arr.forEach(e => {
@@ -45,55 +84,36 @@ function getNumFromValues(arr) {
     }
     return parseInt(sumAsString);
 }
-function compute() {
-    num2 = getNumFromValues(values);
-    switch (operator) {
-        case '':
-            displayError();
-            reset();
-            break;
-        case '+':
-            finalResult = add(num1, num2);
-            displayFinalResult();
-            reset();
-            break;
-        case '-':
-            finalResult = subtract(num1, num2);
-            displayFinalResult();
-            reset();
-            break;
-        case '*':
-            finalResult = multiply(num1, num2);
-            displayFinalResult();
-            reset();
-            break;
-        case '/':
-            finalResult = divide(num1, num2);
-            displayFinalResult();
-            reset();
-            break;
+function updateDipslay(arr) {
+    if (display) {
+        if (arr.length > 0) {
+            let s = '';
+            arr.forEach(e => {
+                s += e;
+            });
+            display.innerText = s;
+        }
+        else {
+            display.innerText = result.toString();
+        }
     }
 }
-function reset() {
-    finalResult = 0;
-    values = [];
-}
-function resetCalculator() {
-    finalResult = 0;
-    values = [];
-    operator = '';
-    updateDipslay();
+function clearBuffer() {
+    buffer = [];
 }
 function displayError() {
     if (display) {
         display.innerText = 'Error';
     }
-    reset();
 }
-function displayFinalResult() {
-    if (display) {
-        display.innerHTML = finalResult.toString();
-    }
+function reset() {
+    clearBuffer();
+    clearNumbers();
+    result;
+}
+function clearNumbers() {
+    firstNum;
+    secondNum;
 }
 let add = (x, y) => x + y;
 let multiply = (x, y) => x * y;

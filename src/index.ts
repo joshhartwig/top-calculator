@@ -1,40 +1,87 @@
-
-let values: string[] = [];
+const display = document.getElementById('display');
+const allowedNumericValues: string[] = ['1','2','3','4','5','6','7','8','9','0','.'];
+const allowedOperatorValues: string[] = ['/','+','*','-']
 let operator: string = '';
-let num1: number = 0;
-let num2: number = 0;
-let finalResult: number = 0;
-const display = document.getElementById(`display`);
+let buffer: string[] = [];
 
-function addToValues(val: string): void {
-    values.push(val);
-    updateDipslay();
-}
+let firstNum: number;
+let secondNum: number;
+let result: number;
+let firstNumSet: boolean = false;
 
-function updateDipslay(): void {
-    if (display) {
-        if (values.length === 0) {
-            display.innerText = '0';
-        }
-        let s: string = '';
-        values.forEach(e => {
-            s += e;
-        });
-        display.innerText = s;
+
+// adds to our display buffer
+function addToBuffer(val: string): void {
+    if(allowedNumericValues.includes(val)){ // if the value pass is one of the allowed values push it
+        buffer.push(val);
+        updateDipslay(buffer);
     }
 }
 
-function setOperator(opr: string) {
-    if (operator === '') { //if the operator is not set, set it
-        operator = opr;
-        num1 = getNumFromValues(values); //copy num from values array
-        values = []; //reset values for the next number
+function calculate():void {
+    if(operator != ''){
+        if (!firstNumSet){ // if first num is not set copy the value to first num and do cleanup
+            firstNum = getNumFromValues(buffer);
+            result = firstNum;
+            clearBuffer();
+            firstNumSet = true;
+            updateDipslay(buffer);
+        } else {
+            secondNum = getNumFromValues(buffer);
+            result = generateResult(operator,firstNum,secondNum);
+            clearNumbers();
+            clearBuffer();
+            updateDipslay(buffer);
+            firstNum = result;
+        }   
     } else {
-        displayError();
+        console.log('error operator must be set.');
+    }
+    
+}
+
+// check if the operator passed is an allowed operator and set the operator
+function setOperator(opr:string){
+    if(allowedOperatorValues.includes(opr)){
+        operator = opr;
+        calculate();
+    } else {
+        console.log('wrong operator passed');
     }
 }
 
+
+// returns the result of an operator and two numbers
+function generateResult(opr:string, num1:number, num2:number):number {
+    let r: number = 0;
+    switch (opr) {
+        case '':
+            displayError();
+            reset();
+            break;
+        case '+':
+            r = add(num1, num2);
+            break;
+        case '-':
+            r = subtract(num1, num2);
+            break;
+        case '*':
+            r = multiply(num1, num2);
+            break;
+        case '/':
+            r = divide(num1, num2);
+            break;
+    }
+    return r;
+}
+
+
+// returns a number from our display bugger
 function getNumFromValues(arr: string[]): number {
+    if(arr.length == 0) {
+        return 0;
+    }
+    
     let sumAsString: string = "";
     let hasDecimal: boolean = false;
     arr.forEach(e => {
@@ -49,64 +96,53 @@ function getNumFromValues(arr: string[]): number {
     return parseInt(sumAsString);
 }
 
-function compute(): void {
-    num2 = getNumFromValues(values);
-
-    switch (operator) {
-        case '':
-            displayError();
-            reset();
-            break;
-        case '+':
-            finalResult = add(num1, num2);
-            displayFinalResult();
-            reset();
-            break;
-        case '-':
-            finalResult = subtract(num1, num2);
-            displayFinalResult();
-            reset();
-            break;
-        case '*':
-            finalResult = multiply(num1, num2);
-            displayFinalResult();
-            reset();
-            break;
-        case '/':
-            finalResult = divide(num1, num2);
-            displayFinalResult();
-            reset();
-            break;
+// update display displays buffer if content exists in the buffer
+// else it will display the result
+function updateDipslay(arr:string[]): void {
+    if (display) {
+        if (arr.length > 0) { // if buffer has any content write that content to display
+            let s: string = '';
+            arr.forEach(e => {
+            s += e;});
+        display.innerText = s;
+        } else {
+            display.innerText = result.toString();
+        }
     }
 }
 
-function reset() {
-    finalResult = 0;
-    values = [];
+// clears the buffer to ready for next input
+function clearBuffer(){
+    buffer = [];
 }
 
-function resetCalculator() {
-    finalResult = 0;
-    values = [];
-    operator = '';
-    updateDipslay();
-}
 
+// displays error message
 function displayError() {
-    if (display) {
+    if(display){
         display.innerText = 'Error';
     }
-    reset();
 }
 
-function displayFinalResult() {
-    if (display) {
-        display.innerHTML = finalResult.toString();
-    }
+// resets the buffer numbers and results (use with c)
+function reset() {
+    clearBuffer();
+    clearNumbers();
+    result; 
 }
 
+// just clear first and second numbers
+function clearNumbers() {
+    firstNum;
+    secondNum;
+}
+
+// math functions
 let add = (x: number, y: number) => x + y;
 let multiply = (x: number, y: number) => x * y;
 let subtract = (x: number, y: number) => x - y;
 let divide = (x: number, y: number) => x / y;
+
+
+
 
