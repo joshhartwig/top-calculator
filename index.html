@@ -20,14 +20,14 @@
     <div class="container">
         <div class="calc">
             <div class="grid-item0" id="display"></div>
-            <div class="grid-item1"><button class="calc-btn" onclick="resetCalculator()">c</button></div>
+            <div class="grid-item1"><button class="calc-btn" onclick="reset()">c</button></div>
             <div class="grid-item2"><button class="calc-btn">+/-</button></div>
-            <div class="grid-item3"><button class="calc-btn" onclick="calculate('%')">%</button></div>
-            <div class="grid-item4"><button class="calc-btn" onclick="calculate('/')">/</button></div>
+            <div class="grid-item3"><button class="calc-btn" onclick="setOperator('%')">%</button></div>
+            <div class="grid-item4"><button class="calc-btn" onclick="setOperator('/')">/</button></div>
             <div class="grid-item5"><button class="calc-btn" onclick="addToBuffer('7')">7</button></div>
             <div class="grid-item6"><button class="calc-btn" onclick="addToBuffer('8')">8</button></div>
             <div class="grid-item7"><button class="calc-btn" onclick="addToBuffer('9')">9</button></div>
-            <div class="grid-item8"><button class="calc-btn" onclick="calculate('*')">*</button></div>
+            <div class="grid-item8"><button class="calc-btn" onclick="setOperator('*')">*</button></div>
             <div class="grid-item9"><button class="calc-btn" onclick="addToBuffer('4')">4</button></div>
             <div class="grid-item10"><button class="calc-btn" onclick="addToBuffer('5')">5</button></div>
             <div class="grid-item11"><button class="calc-btn" onclick="addToBuffer('6')">6</button></div>
@@ -36,7 +36,7 @@
             <div class="grid-item14"><button class="calc-btn" onclick="addToBuffer('2')">2</button></div>
             <div class="grid-item15"><button class="calc-btn" onclick="addToBuffer('3')">3</button></div>
             <div class="grid-item16"><button class="calc-btn" onclick="setOperator('+')">+</button></div>
-            <div class="grid-item17"><button class="calc-btn" onclick="addToBuffer('0')">0</button></div>
+            <div class="grid-item17"><button class="calc-btn" id="btn0" onclick="addToBuffer('0')">0</button></div>
             <div class="grid-item18"><button class="calc-btn" onclick="addToBuffer('.')">.</button></div>
             <div class="grid-item19"><button class="calc-btn" onclick="calculate()">=</button></div>
         </div>

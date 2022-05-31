@@ -1,7 +1,7 @@
 "use strict";
 const display = document.getElementById('display');
 const allowedNumericValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
-const allowedOperatorValues = ['/', '+', '*', '-'];
+const allowedOperatorValues = ['/', '+', '*', '-', '%'];
 let operator = '';
 let buffer = [];
 let firstNum;
@@ -64,6 +64,9 @@ function generateResult(opr, num1, num2) {
         case '/':
             r = divide(num1, num2);
             break;
+        case '%':
+            r = modulus(num1, num2);
+            break;
     }
     return r;
 }
@@ -109,13 +112,15 @@ function displayError() {
 function reset() {
     clearBuffer();
     clearNumbers();
-    result;
+    result = 0;
+    updateDipslay(buffer);
 }
 function clearNumbers() {
-    firstNum;
-    secondNum;
+    firstNum = 0;
+    secondNum = 0;
 }
 let add = (x, y) => x + y;
 let multiply = (x, y) => x * y;
 let subtract = (x, y) => x - y;
 let divide = (x, y) => x / y;
+let modulus = (x, y) => x % y;
