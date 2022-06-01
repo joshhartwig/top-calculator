@@ -41,11 +41,16 @@ function calculate(): void {
 
 // check if the operator passed is an allowed operator and set the operator
 function setOperator(opr: string) {
-    if (allowedOperatorValues.includes(opr)) {
-        operator = opr;
-        calculate();
+    if (operator === '') { // if the operator is not set, set it and do a calculation
+        if (allowedOperatorValues.includes(opr)) {
+            operator = opr;
+            calculate();
+        } else {
+            console.log('wrong operator passed');
+        }
     } else {
-        console.log('wrong operator passed');
+        calculate(); // this fix situations such as 5 + 5 * 
+        operator = opr; 
     }
 }
 

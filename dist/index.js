@@ -37,12 +37,18 @@ function calculate() {
     }
 }
 function setOperator(opr) {
-    if (allowedOperatorValues.includes(opr)) {
-        operator = opr;
-        calculate();
+    if (operator === '') {
+        if (allowedOperatorValues.includes(opr)) {
+            operator = opr;
+            calculate();
+        }
+        else {
+            console.log('wrong operator passed');
+        }
     }
     else {
-        console.log('wrong operator passed');
+        calculate();
+        operator = opr;
     }
 }
 function generateResult(opr, num1, num2) {
